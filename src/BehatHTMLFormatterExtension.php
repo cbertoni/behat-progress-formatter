@@ -28,7 +28,7 @@ class BehatProgressFormatterExtension implements ExtensionInterface {
   }
 
   public function load(ContainerBuilder $container, array $config) {
-    $definition = new Definition('cbertoni\ListPrinterFixed', array(
+    $definition = new Definition('cbertoni\BehatProgressFormatter\ListPrinterFixed', array(
         new Reference(self::RESULT_TO_STRING_CONVERTER_ID),
         new Reference(ExceptionExtension::PRESENTER_ID),
         new Reference(TranslatorExtension::TRANSLATOR_ID),
