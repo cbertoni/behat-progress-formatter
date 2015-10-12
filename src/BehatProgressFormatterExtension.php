@@ -8,6 +8,8 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Behat\Testwork\Exception\ServiceContainer\ExceptionExtension;
+use Behat\Testwork\Translator\ServiceContainer\TranslatorExtension;
 
 class BehatProgressFormatterExtension implements ExtensionInterface {
 
@@ -30,7 +32,7 @@ class BehatProgressFormatterExtension implements ExtensionInterface {
 
   public function load(ContainerBuilder $container, array $config) {
     $definition = new Definition('cbertoni\BehatProgressFormatter\ListPrinterFixed', array(
-        new Reference(self::RESULT_TO_STRING_CONVERTER_ID),
+        new Reference('output.node.printer.result_to_string'),
         new Reference(ExceptionExtension::PRESENTER_ID),
         new Reference(TranslatorExtension::TRANSLATOR_ID),
         '%paths.base%'
