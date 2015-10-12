@@ -55,15 +55,6 @@ final class ProgressStatisticsPrinterFixed implements StatisticsPrinter
         $printer->writeln();
         $printer->writeln();
 
-        $hookStats = $statistics->getFailedHookStats();
-        $this->listPrinter->printFailedHooksList($printer, 'failed_hooks_title', $hookStats);
-
-        $stepStats = $statistics->getFailedSteps();
-        $this->listPrinter->printStepList($printer, 'failed_steps_title', TestResult::FAILED, $stepStats);
-
-        $stepStats = $statistics->getPendingSteps();
-        $this->listPrinter->printStepList($printer, 'pending_steps_title', TestResult::PENDING, $stepStats);
-
         $scenarioStats = $statistics->getFailedScenarios();
         $this->listPrinter->printScenariosList($printer, 'failed_scenarios_title', TestResult::FAILED, $scenarioStats);
 
