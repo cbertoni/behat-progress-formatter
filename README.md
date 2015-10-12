@@ -1,5 +1,6 @@
-# behat-progress-formatter 
-Adds a custom progress formatter which prints the list of failed files at the end of the output.
+# Behat Progress Formatter 
+On Behat `Progress` format is several times faster when running tests than `Pretty` format. The problems is that, `Progress` format doesn't print the failed scenarios which is a real problem when you have just 1 failed scenario over thounsands of tests and you don't know which is.
+This adds a custom progress formatter which prints the list of failed files at the end of the output.
 
 ## Intallation
 - In your `composer.json` file add
