@@ -16,7 +16,7 @@ class BehatProgressFormatterExtension implements Extension {
   }
 
   public function getConfigKey() {
-    return "cbertoniprogress";
+    return "progress";
   }
 
 
