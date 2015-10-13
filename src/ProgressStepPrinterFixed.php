@@ -36,6 +36,8 @@ final class ProgressStepPrinterFixed implements StepPrinter
 
     private $basePath;
 
+    private $steps_has_passed_since_last_print = false;
+
     /**
      * Initializes printer.
      *
@@ -57,10 +59,10 @@ final class ProgressStepPrinterFixed implements StepPrinter
 
         switch ($result->getResultCode()) {
             case TestResult::PASSED:
+                $this->steps_has_passed_since_last_print = true;
                 $printer->write("{+$style}.{-$style}");
                 break;
             case TestResult::SKIPPED:
-                $printer->write("{+$style}-{-$style}");
                 break;
             case TestResult::PENDING:
                 $printer->write("{+$style}P{-$style}");
@@ -73,13 +75,13 @@ final class ProgressStepPrinterFixed implements StepPrinter
                     $result->getCallResult()->getCall()->getFeature()->getFile()
                 );
                 $file_line = $scenario->getLine();
-                $printer->write(
-                    sprintf("%s{+$style}%s:%s{-$style}%s", PHP_EOL, $file_name, $file_line, PHP_EOL)
-                );
+                $test_line = sprintf("%s:%s", $file_name, $file_line);
+                $printer->write(sprintf("{+$style}%s{-$style}", $test_line));
                 break;
         }
 
-        if (++$this->stepsPrinted % 70 == 0) {
+        if ($this->steps_has_passed_since_last_print && ++$this->stepsPrinted % 100 == 0) {
+            $this->steps_has_passed_since_last_print = false;
             $printer->writeln(' ' . $this->stepsPrinted);
         }
     }
