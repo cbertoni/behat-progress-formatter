@@ -34,5 +34,11 @@ class BehatProgressFormatterExtension implements Extension {
         new Reference('output.node.printer.list')
     ));
     $container->setDefinition('output.node.printer.progress.statistics', $definition);
+
+    $definition = new Definition('cbertoni\BehatProgressFormatter\ProgressStepPrinterFixed', array(
+        new Reference('output.node.printer.result_to_string'),
+        '%paths.base%'
+    ));
+    $container->setDefinition('output.node.printer.progress.step', $definition);
   }
 }
