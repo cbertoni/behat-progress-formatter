@@ -1,6 +1,9 @@
 # Behat Progress Formatter 
-On Behat `Progress` format is several times faster when running tests than `Pretty` format. The problems is that, `Progress` format doesn't print the failed scenarios which is a real problem when you have just 1 failed scenario over thounsands of tests and you don't know which is.
-This adds a custom progress formatter which prints the list of failed files at the end of the output.
+On Behat `Progress` format is several times faster when running tests than `Pretty` format. But `Progress` format have two issues:
+- It doesn't print the information on the tests failed (just prints an `F`) and when you run thousands of tests you have to wait until the end to know what the problem is.
+- It doesn't print the failed scenarios which is a real problem when you have just 1 failed scenario over thounsands of tests and you don't know which is.
+
+This Behat extension adds a custom `Progress` formatter which prints the list of failed scenarios at the end of the output and prints each scenario at the moment of the failure (you can re-run it to know what the problem is).
 
 ## Intallation
 - In your `composer.json` file add
@@ -27,27 +30,16 @@ default:
 - You will see an output like this:
 ```
 ./vendor/bin/behat --profile test --format progress ./tests/integration/features/StreamsMediaByOrder.feature
-..F------------------------------------------------------------------- 70
----------------------------------------------------------------------- 140
----------------------------------------------------------------------- 210
-------------------------------------------------------------..F------- 280
----------------------------------------------------------------------- 350
----------------------------------------------------------------------- 420
----------------------------------------------------------------------- 490
---------------------------------------------------..F----------------- 560
----------------------------------------------------------------------- 630
-------------------------..F------------------------------------------- 700
----------------------------------------------------------------------- 770
-----------------..F--------------------------------------------------- 840
----------------------------------------------------------------------- 910
--------------------..F------------------------------------------------ 980
----------------------------------------------------------------------- 1050
------------..F-------------------------------------------------------- 1120
----------------------------------------------------------------------- 1190
----------------------------------------------------------------------- 1260
------------..F----------------------------------------................ 1330
-.....................................F-............................... 1400
-...................
+Failed loading /usr/local/Cellar/php55/5.5.23/lib/php/extensions/no-debug-non-zts-20121212/xdebug.so:  dlopen(/usr/local/Cellar/php55/5.5.23/lib/php/extensions/no-debug-non-zts-20121212/xdebug.so, 9): image not found
+..tests/integration/features/StreamsMediaByOrder.feature:8 100
+..tests/integration/features/StreamsMediaByOrder.feature:285 200
+..tests/integration/features/StreamsMediaByOrder.feature:572 300
+..tests/integration/features/StreamsMediaByOrder.feature:689 400
+..tests/integration/features/StreamsMediaByOrder.feature:824 500
+..tests/integration/features/StreamsMediaByOrder.feature:970 600
+..tests/integration/features/StreamsMediaByOrder.feature:1105 700
+..tests/integration/features/StreamsMediaByOrder.feature:1318.....................................................tests/integration/features/StreamsMediaByOrder.feature:1386.. 800
+................................................
 
 --- Failed scenarios:
 
@@ -63,5 +55,5 @@ default:
 
 29 scenarios (20 passed, 9 failed)
 1419 steps (119 passed, 9 failed, 1291 skipped)
-0m7.73s (13.44Mb)
+0m6.23s (13.45Mb)
 ```
