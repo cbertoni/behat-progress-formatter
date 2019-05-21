@@ -15,6 +15,10 @@ class BehatProgressFormatterExtension implements Extension {
 
   }
 
+  public function getName() {
+    return "progress";
+  }
+
   public function getConfigKey() {
     return "progress";
   }
